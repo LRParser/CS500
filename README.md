@@ -15,3 +15,12 @@ https://www.kaggle.com/mrisdal/fake-news
 
 Real news dataset:
 https://www.kaggle.com/uciml/news-aggregator-dataset
+
+Platform:
+JavaEE
+
+ORDBMS:
+PostgreSQL
+
+External API:
+http://restfb.com/
