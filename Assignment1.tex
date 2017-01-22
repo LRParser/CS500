@@ -1,6 +1,7 @@
 \documentclass{article}
 
 \usepackage{hyperref}
+\usepackage{underscore}
 
 \begin{document}
 \begin{center}
@@ -11,7 +12,23 @@
 
 Our team has chosen to create an application which will assist in running a model to detect fake users, groups, pages and posts on the Facebook social media platform. It is motivated by recent research showing successful detection of large numbers of fake social media accounts \cite{2017arXiv170102405E}. There have also been reports of "paid likes"  plaguing social media networks \cite{TheBotBubble}. This application will assign a probabilistic "realness score" (e.g., a "truth likelihood" score) to Facebook users, groups, pages and posts based on the below general business logic.
 
-\subsection*{Business Logic}
+\subsection{Entity Sets, Relationship Sets, Business Rules}
+
+\subsubsection{User}
+
+The primary key is id. Other attributes are first_name, last_name, friends_count, email, about, is_verified, likes, groups, profile_picture, post
+
+\subsubsection{Page}
+A page has an owner of type User, as well as a series of Posts. The primary key is id. Other attributes are name, about, fan_count, description, email, contact_address, founded, overall_star_rating, bio, categoy, were_here_count, location, owner, posts. As a business rule, each page must be owned by exactly one user
+
+\subsubsection{Group}
+A group may make posts. Its membership cannot be directly queried. The primary Key is id. Other attributes are name, owner, member_count, email, description, update_time, created, privacy, posts.
+
+\subsubsection{Post}
+
+A post is a document posted to the social media network. Its primary key is id. Other attributes are created_time, owner, name, message, shares_count, reactions, update_time, with_tags. As a business rule, a post must be created by exactly one user, or exactly one group, or exactly one page.
+
+\subsection*{Scoring Logic}
 
 First, the program will download data regarding the public profiles of recently-created users.  Next, the program will calculate a "realness score" to each public user based on:
 
