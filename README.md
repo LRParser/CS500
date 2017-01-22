@@ -1,2 +1,2 @@
-# FakeNews
-FakeNews
+# CS500
+CS500 Project
