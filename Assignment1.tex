@@ -14,19 +14,24 @@ Our team has chosen to create an application which will assist in running a mode
 
 \subsection{Entity Sets, Relationship Sets, Business Rules}
 
+\subsubsection{Content_Creator}
+This serves as the root of the class hierarchy. It is sublclassed into three subclasses. The primary key is id. Other attributes are name, about, email, is_verified, posts, profile_picture, contact_address.
+
+
 \subsubsection{User}
 
-The primary key is id. Other attributes are first_name, last_name, friends_count, email, about, is_verified, likes, groups, profile_picture, post
+This is a subclass of Content_Creator
+The primary key is id. Other attributes are friends_count, likes, groups, member_since.
 
 \subsubsection{Page}
-A page has an owner of type User, as well as a series of Posts. The primary key is id. Other attributes are name, about, fan_count, description, email, contact_address, founded, overall_star_rating, bio, categoy, were_here_count, location, owner, posts. As a business rule, each page must be owned by exactly one user
+A page has an owner of type User. The primary key is id. Other attributes are fan_count, founded, overall_star_rating, category, were_here_count, location, owner.  As a business rule, each page must be owned by exactly one user
 
 \subsubsection{Group}
-A group may make posts. Its membership cannot be directly queried. The primary Key is id. Other attributes are name, owner, member_count, email, description, update_time, created, privacy, posts.
+A group may make posts. Its membership cannot be directly queried. The primary Key is id. Other attributes are member_count, update_time, created, privacy. As a business rule each group must be owned by exactly one user.
 
 \subsubsection{Post}
 
-A post is a document posted to the social media network. Its primary key is id. Other attributes are created_time, owner, name, message, shares_count, reactions, update_time, with_tags. As a business rule, a post must be created by exactly one user, or exactly one group, or exactly one page.
+A post is a document posted to the social media network. Its primary key is id. Other attributes are created_time, owner, name, message, shares_count, reactions, update_time, with_tags. As a business rule, a post must be created by exactly one Content_Creator.
 
 \subsection*{Scoring Logic}
 
