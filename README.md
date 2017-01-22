@@ -1,6 +1,12 @@
 # CS500
 CS500 Project
 
+Setup on Debian:
+sudo apt-get install -y texlive-latex-recommended
+
+Gen PDF:
+./buildDoc.sh
+
 References:
 http://cloudacademy.com/blog/google-cloud-natural-language-processing-api/
 
