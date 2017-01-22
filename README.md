@@ -4,6 +4,11 @@ CS500 Project
 Setup on Debian:
 sudo apt-get install -y texlive-latex-recommended
 
+Setup Latex on OS X:
+sudo brew cask install mactex
+echo "$PATH=$PATH:/Library/TeX/texbin" >> ~/.bashrc
+source ~/.bashrc
+
 Gen PDF:
 ./buildDoc.sh
 

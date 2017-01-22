@@ -1,0 +1,45 @@
+\documentclass{article}
+
+\usepackage{hyperref}
+
+\begin{document}
+\begin{center}
+\begin{LARGE}{Joseph Heenan and Zain ul Abidin} \end{LARGE}
+\end{center}
+
+\section{Project Description}
+
+Our team has chosen to create an application which will assist in running a model to detect fake users, groups, pages and posts on the Facebook social media platform. It is motivated by recent research showing successful detection of large numbers of fake social media accounts \cite{2017arXiv170102405E}. There have also been reports of "paid likes"  plaguing social media networks \cite{TheBotBubble}. This application will assign a probabilistic "realness score" (e.g., a "truth likelihood" score) to Facebook users, groups, pages and posts based on the below general business logic.
+
+\subsection*{Business Logic}
+
+First, the program will download data regarding the public profiles of recently-created users.  Next, the program will calculate a "realness score" to each public user based on:
+
+\begin{enumerate}
+\item Whether or not the biographical information and metadata (e.g., work history and photo) is verifiable via a query using the Google Search API, and
+\item The density of relationships that these user has to other users; realness score will be positively influenced by connections to others users with a high realness score, and negatively influenced in the inverse scenario
+\end{enumerate}
+
+Next, the program will examine groups and pages that these users have joined or created, respectively. Groups containing with a large number of users with a low realness score will be transitively assigned a low realness score as will pages created by such users. Finally, the program will examine publicly-available posts. Posts will be assigned a realness score based on:
+
+\begin{enumerate}
+\item The transitive realness score of their associated author users, linked groups, and linked pages, and
+\item Density of dissenting comments found via natural language processing of comments related to the post
+\end{enumerate}
+
+\subsection*{Application UI}
+
+The application UI will:
+\begin{enumerate}
+\item Contain a button to begin a new data import, allowing a user to specify the number of entities to import (within the parameters of the Facebook API's Terms of Service) as well as the Facebook API key the researcher will use and
+\item Show a summary report of realness scores assigned to each of these entities, and allow a user to examine each entity (e.g., user, page, group or post) more closely if desired, and finally:
+\item Allow a user to input a URI of a post, user or group and view a realness score on-demand according to the model contained in the program's business logic
+\end{enumerate}
+
+
+\bibliography{assignment1}
+\bibliographystyle{ieeetr}
+
+
+
+\end{document}
