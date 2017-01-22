@@ -15,12 +15,11 @@ Our team has chosen to create an application which will assist in running a mode
 \subsection{Entity Sets, Relationship Sets, Business Rules}
 
 \subsubsection{Content_Creator}
-This serves as the root of the class hierarchy. It is sublclassed into three subclasses. The primary key is id. Other attributes are name, about, email, is_verified, posts, profile_picture, contact_address.
+This serves as the root of the class hierarchy. It is sublclassed into three subclasses User, Page and Group. The primary key is id. Other attributes are name, about, email, is_verified, posts, profile_picture, contact_address.
 
 
 \subsubsection{User}
 
-This is a subclass of Content_Creator
 The primary key is id. Other attributes are friends_count, likes, groups, member_since.
 
 \subsubsection{Page}
