@@ -15,12 +15,19 @@ Our team has chosen to create an application which will assist in running a mode
 \subsection{Entity Sets, Relationship Sets, Business Rules}
 
 \subsubsection{Content_Creator}
-This serves as the root of the class hierarchy. It is sublclassed into three subclasses User, Page and Group. The primary key is id. Other attributes are name, about, email, is_verified, posts, profile_picture, contact_address.
-
+This serves as the root of the class hierarchy. It is subclassed into three subclasses User, Page and Group. The primary key is id. Other attributes are name, about, email, is_verified, posts, profile_picture, contact_address.
 
 \subsubsection{User}
 
 The primary key is id. Other attributes are friends_count, likes, groups, member_since.
+
+\subsection{UserEducationExperience}
+
+The primary key is id. Other attributes are user_id, which link to the relevant user for the experience, school, which links to the id for a Page for the school attended, studied_with, which contains a list of IDs of Users who had the same education experience, and year, which is a string representing a date of graduation. As a business rule, a user can have none, one or many UserEducationExperience
+
+\subsubsection{UserWorkExperience}
+
+The primary key is id. Other attributes are user_id, which link to the relevant user for the work experience, and employer, which links to the id for the Page for the Employer.
 
 \subsubsection{Page}
 A page has an owner of type User. The primary key is id. Other attributes are fan_count, founded, overall_star_rating, category, were_here_count, location, owner.  As a business rule, each page must be owned by exactly one user
