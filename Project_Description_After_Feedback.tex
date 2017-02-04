@@ -1,0 +1,73 @@
+\documentclass{article}
+
+\usepackage{hyperref}
+\usepackage{underscore}
+
+\begin{document}
+\begin{center}
+\begin{LARGE}{Joseph Heenan and Zainul Abi Din} \end{LARGE}
+\end{center}
+
+\section{Project Description}
+
+Our team has chosen to create an application which will assist in running a model to detect fake users, groups, pages and posts on the Facebook social media platform. It is motivated by recent research showing successful detection of large numbers of fake social media accounts \cite{2017arXiv170102405E}. There have also been reports of "paid likes"  plaguing social media networks \cite{TheBotBubble}. This application will assign a probabilistic "realness score" (e.g., a "truth likelihood" score) to Facebook users, groups, pages and posts based on the below general business logic.
+
+\subsection{Entity Sets, Relationship Sets, Business Rules}
+
+\subsubsection{Content_Creator}
+This serves as the root of the class hierarchy. It is subclassed into User, Page and Group. The primary key is id. Other attributes are name, about, email, is_verified, posts, profile_picture, contact_address.
+
+\subsubsection{Group}
+A group may make posts. Its membership cannot be directly queried. Attributes are member_count, update_time, created and privacy. As a business rule each group must be owned by exactly one user.
+
+\subsubsection{Page}
+A page has an owner of type User. Attributes are fan_count, founded, overall_star_rating, category, were_here_count and location.  As a business rule, each page must be owned by exactly one user.
+
+\subsubsection{User}
+
+A user has the attributes: likes, friends_count, and member_since.
+
+\subsection{UserEducationExperience}
+
+The primary key is id. Other attributes are , school, which links to the id for a Page for the school attended and studied_with, which contains a list of IDs of Users who had the same education experience. As a business rule, a user can have none, one or many UserEducationExperience, and each UserEducationExperience maps to exactly one User.
+
+\subsubsection{UserWorkExperience}
+
+The primary key is id. Other attributes are employer, which links to the id for the Page for the Employer. As a business rule, a user can have none, one or many UserWorkExperience, and each UserWorkExperience maps to exactly one User
+
+\subsubsection{Post}
+
+A post is a document posted to the social media network. Its primary key is id. Other attributes are created_time, name, message, shares_count, reactions, update_time, with_tags. As a business rule, a post must be created by exactly one Content_Creator.
+
+\subsection*{Scoring Logic}
+
+First, the program will download data regarding the public profiles of recently-created users.  Next, the program will calculate a "realness score" to each public user based on:
+
+\begin{enumerate}
+\item Whether or not the biographical information and metadata (e.g., work history and photo) is verifiable via a query using the Google Search API, and
+\item The density of relationships that these user has to other users; realness score will be positively influenced by connections to others users with a high realness score, and negatively influenced in the inverse scenario
+\end{enumerate}
+
+Next, the program will examine groups and pages that these users have joined or created, respectively. Groups containing with a large number of users with a low realness score will be transitively assigned a low realness score as will pages created by such users. Finally, the program will examine publicly-available posts. Posts will be assigned a realness score based on:
+
+\begin{enumerate}
+\item The transitive realness score of their associated author users, linked groups, and linked pages, and
+\item Density of dissenting comments found via natural language processing of comments related to the post
+\end{enumerate}
+
+\subsection*{Application UI}
+
+The application UI will:
+\begin{enumerate}
+\item Contain a button to begin a new data import, allowing a user to specify the number of entities to import (within the parameters of the Facebook API's Terms of Service) as well as the Facebook API key the researcher will use and
+\item Show a summary report of realness scores assigned to each of these entities, and allow a user to examine each entity (e.g., user, page, group or post) more closely if desired, and finally:
+\item Allow a user to input a URI of a post, user or group and view a realness score on-demand according to the model contained in the program's business logic
+\end{enumerate}
+
+
+\bibliography{assignment1}
+\bibliographystyle{ieeetr}
+
+
+
+\end{document}
