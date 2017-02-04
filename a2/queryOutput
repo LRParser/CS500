@@ -1,0 +1,639 @@
+select * from Sailors;
+ sid |  name   | rating | age 
+-----+---------+--------+-----
+   1 | Dustin  |      7 |  45
+   2 | Rusty   |     10 |  35
+   3 | Horatio |      5 |  35
+   4 | Zorba   |      8 |  18
+   5 | Julius  |        |  25
+(5 rows)
+
+select * from Boats;
+ bid |   name    | color 
+-----+-----------+-------
+ 101 | Interlake | blue
+ 102 | Interlake | red
+ 103 | Clipper   | green
+ 104 | Marine    | red
+(4 rows)
+
+select * from Reserves;
+ sid | bid |    day     
+-----+-----+------------
+   1 | 101 | 2012-10-10
+   1 | 102 | 2012-10-10
+   1 | 101 | 2012-07-10
+   2 | 102 | 2012-09-11
+   2 | 102 | 2012-11-07
+   3 | 101 | 2012-11-07
+   3 | 102 | 2012-08-07
+   4 | 103 | 2012-09-19
+(8 rows)
+
+select S.name, S.age, S.rating*2 
+from Sailors S
+where S.name like 'A%' OR S.name like '_ust%';
+  name  | age | ?column? 
+--------+-----+----------
+ Dustin |  45 |       14
+ Rusty  |  35 |       20
+(2 rows)
+
+select name, sid 
+from   Sailors
+where  rating * 5 < age;
+  name   | sid 
+---------+-----
+ Dustin  |   1
+ Horatio |   3
+(2 rows)
+
+select name, sid 
+from   Sailors
+where  name like '%u%';
+  name  | sid 
+--------+-----
+ Dustin |   1
+ Rusty  |   2
+ Julius |   5
+(3 rows)
+
+select * 
+from Sailors
+where rating is not null;
+ sid |  name   | rating | age 
+-----+---------+--------+-----
+   1 | Dustin  |      7 |  45
+   2 | Rusty   |     10 |  35
+   3 | Horatio |      5 |  35
+   4 | Zorba   |      8 |  18
+(4 rows)
+
+select * 
+from Sailors
+where rating is null;
+ sid |  name  | rating | age 
+-----+--------+--------+-----
+   5 | Julius |        |  25
+(1 row)
+
+select sid, rating * 0 
+from   Sailors;
+ sid | ?column? 
+-----+----------
+   1 |        0
+   2 |        0
+   3 |        0
+   4 |        0
+   5 |         
+(5 rows)
+
+select sid as sailor_id, rating / 10 as normalized_rating
+from   Sailors;
+ sailor_id | normalized_rating 
+-----------+-------------------
+         1 |                 0
+         2 |                 1
+         3 |                 0
+         4 |                 0
+         5 |                  
+(5 rows)
+
+select S.sid, S.rating / 10 as normalized_rating
+from   Sailors S;
+ sid | normalized_rating 
+-----+-------------------
+   1 |                 0
+   2 |                 1
+   3 |                 0
+   4 |                 0
+   5 |                  
+(5 rows)
+
+select * 
+from Reserves
+order by sid, bid;
+ sid | bid |    day     
+-----+-----+------------
+   1 | 101 | 2012-07-10
+   1 | 101 | 2012-10-10
+   1 | 102 | 2012-10-10
+   2 | 102 | 2012-09-11
+   2 | 102 | 2012-11-07
+   3 | 101 | 2012-11-07
+   3 | 102 | 2012-08-07
+   4 | 103 | 2012-09-19
+(8 rows)
+
+select * 
+from Reserves
+order by sid desc, bid;
+ sid | bid |    day     
+-----+-----+------------
+   4 | 103 | 2012-09-19
+   3 | 101 | 2012-11-07
+   3 | 102 | 2012-08-07
+   2 | 102 | 2012-11-07
+   2 | 102 | 2012-09-11
+   1 | 101 | 2012-10-10
+   1 | 101 | 2012-07-10
+   1 | 102 | 2012-10-10
+(8 rows)
+
+select S.name
+from   Sailors S, Reserves R
+where  S.sid = R.sid
+and    R.bid = 101;
+  name   
+---------
+ Dustin
+ Dustin
+ Horatio
+(3 rows)
+
+select S.age 
+from   Sailors S, Reserves R, Boats B
+where  S.sid = R.sid
+and    R.bid = B.bid
+and    B.color = 'red';
+ age 
+-----
+  45
+  35
+  35
+  35
+(4 rows)
+
+select distinct S.age 
+from   Sailors S, Reserves R, Boats B
+where  S.sid = R.sid
+and    R.bid = B.bid
+and    B.color = 'red';
+ age 
+-----
+  45
+  35
+(2 rows)
+
+select   distinct S.name, S.rating
+from     Sailors S, Reserves R, Boats B
+where    S.sid = R.sid
+and      R.bid = B.bid
+and      B.name = 'Interlake'
+and      S.name like '%u%';
+  name  | rating 
+--------+--------
+ Dustin |      7
+ Rusty  |     10
+(2 rows)
+
+select   R.day
+from     Sailors S, Reserves R, Boats B
+where    S.sid = R.sid
+and      R.bid = B.bid
+and      B.color = 'red'
+and      S.age < 40;
+    day     
+------------
+ 2012-09-11
+ 2012-11-07
+ 2012-08-07
+(3 rows)
+
+select DISTINCT S.sid
+from   Sailors S, Boats B, Reserves R
+where  S.sid = R.sid  and B.bid = R.bid
+and    (B.color = 'red' or B.color = 'blue');
+ sid 
+-----
+   1
+   2
+   3
+(3 rows)
+
+select DISTINCT S.sid
+from   Sailors S, Boats B1, Reserves R1, 
+                  Boats B2, Reserves R2
+where  S.sid = R1.sid and B1.bid = R1.bid
+and    S.sid = R2.sid and B2.bid = R2.bid   
+and    B1.color = 'red' 
+and    B2.color = 'blue';
+ sid 
+-----
+   1
+   3
+(2 rows)
+
+select DISTINCT S.sid
+from   Sailors S, Boats B, Reserves R
+where  S.sid = R.sid and    B.bid = R.bid
+and    B.color = 'red'
+UNION
+select DISTINCT S.sid
+from   Sailors S, Boats B, Reserves R
+where  S.sid = R.sid and    B.bid = R.bid
+and    B.color = 'blue';
+ sid 
+-----
+   1
+   2
+   3
+(3 rows)
+
+select DISTINCT S.sid
+from   Sailors S, Boats B, Reserves R
+where  S.sid = R.sid and    B.bid = R.bid
+and    B.color = 'red'
+INTERSECT
+select DISTINCT S.sid
+from   Sailors S, Boats B, Reserves R
+where  S.sid = R.sid and    B.bid = R.bid
+and    B.color = 'blue';
+ sid 
+-----
+   1
+   3
+(2 rows)
+
+select DISTINCT S.sid
+from   Sailors S, Boats B, Reserves R
+where  S.sid = R.sid and    B.bid = R.bid
+and    B.color = 'red'
+EXCEPT
+select DISTINCT S.sid
+from   Sailors S, Boats B, Reserves R
+where  S.sid = R.sid and    B.bid = R.bid
+and    B.color = 'blue';
+ sid 
+-----
+   2
+(1 row)
+
+select distinct B.bid
+from   Boats B, Reserves R, Sailors S
+where  B.bid = R.bid
+and    R.sid = S.sid
+and    S.rating > 7;
+ bid 
+-----
+ 102
+ 103
+(2 rows)
+
+select DISTINCT B.bid
+from   Boats B, Reserves R, Sailors S
+where  B.bid = R.bid
+and    R.sid = S.sid
+and    (S.rating > 7 or S.rating < 5);
+ bid 
+-----
+ 102
+ 103
+(2 rows)
+
+select DISTINCT B.bid
+from   Boats B, Reserves R, Sailors S
+where  B.bid = R.bid
+and    R.sid = S.sid
+and    S.rating > 7 
+UNION
+select DISTINCT B.bid
+from   Boats B, Reserves R, Sailors S
+where  B.bid = R.bid
+and    R.sid = S.sid
+and    S.rating < 5;
+ bid 
+-----
+ 102
+ 103
+(2 rows)
+
+select B.bid
+from   Reserves R, Sailors S
+where  R.sid = S.sid
+and    S.rating > 7 
+INTERSECT
+select B.bid
+from   Reserves R, Sailors S
+where  R.sid = S.sid
+and    S.rating < 5;
+select B.bid
+from   Reserves R, Sailors S
+where  R.sid = S.sid
+and    S.rating > 7 
+INTERSECT
+select B.bid
+from   Reserves R, Sailors S
+where  R.sid = S.sid
+and    S.rating < 5;
+select S.name
+from   Sailors S, Reserves R
+where  S.sid = R.sid
+and    R.bid = 103;
+ name  
+-------
+ Zorba
+(1 row)
+
+select S.name
+from   Sailors S
+where S.sid in (select  R.sid 
+    		     from    Reserves R 
+    		     where   R.bid = 103);
+ name  
+-------
+ Zorba
+(1 row)
+
+select S.name
+from   Boats B, Reserves R, Sailors S
+where  B.bid = R.bid
+and    R.sid = S.sid
+and    B.color = 'red';
+  name   
+---------
+ Dustin
+ Rusty
+ Rusty
+ Horatio
+(4 rows)
+
+select S.name
+from   Sailors S
+where  S.sid in (select R.sid 
+    	 	     from   Reserves R 
+    		     where  R.bid in (select B.bid
+				      from   Boats B
+                                      where  B.color = 'red'));
+  name   
+---------
+ Dustin
+ Rusty
+ Horatio
+(3 rows)
+
+select distinct B.color 
+from   Boats B, Reserves R, Sailors S
+where  B.bid = R.bid
+and    R.sid = S.sid
+and    S.rating > 7;
+ color 
+-------
+ green
+ red
+(2 rows)
+
+select distinct B.color
+from   Boats B, Reserves R
+where  B.bid = R.bid
+and    R.sid in (select S.sid 
+                 from   Sailors S
+                 where  S.rating > 7);
+ color 
+-------
+ green
+ red
+(2 rows)
+
+select distinct B.name 
+from   Boats B, Reserves R
+where  B.bid = R.bid
+and    to_char(day, 'Mon') = 'Oct';
+   name    
+-----------
+ Interlake
+(1 row)
+
+select distinct B.name 
+from   Boats B
+where  B.bid in (select R.bid
+                 from   Reserves R
+                 where  to_char(day, 'Mon') = 'Oct');
+   name    
+-----------
+ Interlake
+(1 row)
+
+select S.name
+from   Sailors S
+where  S.sid not in (select R.sid 
+    	 	     from   Reserves R 
+    		     where  R.bid in (select B.bid 
+			   	      from   Boats B
+                                      where  B.color = 'red'));
+  name  
+--------
+ Zorba
+ Julius
+(2 rows)
+
+select S.name
+from   Sailors S
+where  S.sid in (select R.sid 
+    	 	 from   Reserves R 
+    		 where  R.bid not in (select B.bid 
+		   	              from   Boats B
+                                      where  B.color = 'red'));
+  name   
+---------
+ Dustin
+ Horatio
+ Zorba
+(3 rows)
+
+select S.name, S.sid
+from   Sailors S
+where  not exists (select  *
+    		   from    Reserves R 
+    		   where   R.sid = S.sid);
+  name  | sid 
+--------+-----
+ Julius |   5
+(1 row)
+
+select S.name, S.sid
+from   Sailors S
+where  not exists (select * 
+                   from   Reserves R, Boats B 
+                   where  R.sid = S.sid
+                   and    R.bid = B.bid 
+                   and    B.color = 'red');
+  name  | sid 
+--------+-----
+ Zorba  |   4
+ Julius |   5
+(2 rows)
+
+select B.name, B.color
+from   Boats B
+where  not exists (select * 
+                   from   Reserves R
+                   where  R.bid = B.bid);
+  name  | color 
+--------+-------
+ Marine | red
+(1 row)
+
+select AVG(age)
+from   Sailors
+where  rating = 10;
+         avg         
+---------------------
+ 35.0000000000000000
+(1 row)
+
+select COUNT(*)
+from Sailors;
+ count 
+-------
+     5
+(1 row)
+
+select COUNT(*), AVG(age), MIN(rating)
+from Sailors;
+ count |         avg         | min 
+-------+---------------------+-----
+     5 | 31.6000000000000000 |   5
+(1 row)
+
+select S1.name, S1.age
+from   Sailors S1
+where  S1.age = (select max(S2.age) from Sailors S2);
+  name  | age 
+--------+-----
+ Dustin |  45
+(1 row)
+
+select COUNT(distinct age) num_unique_ages, COUNT(age) num_ages
+from   Sailors;
+ num_unique_ages | num_ages 
+-----------------+----------
+               4 |        5
+(1 row)
+
+select COUNT(*)
+from   Sailors S1
+where  S1.age > (select MAX(S2.age) 
+                 from   Sailors S2 
+                 where  S2.rating = 10);
+ count 
+-------
+     1
+(1 row)
+
+select S1.sid, S1.name
+from   Sailors S1
+where  S1.rating > (select AVG(S2.rating) 
+                    from   Sailors S2);
+ sid | name  
+-----+-------
+   2 | Rusty
+   4 | Zorba
+(2 rows)
+
+select    rating, MIN(age)
+from      Sailors
+group by  rating;
+ rating | min 
+--------+-----
+        |  25
+      8 |  18
+      5 |  35
+     10 |  35
+      7 |  45
+(5 rows)
+
+select    rating, MIN(age)
+from      Sailors
+group by  rating
+having    count(*) > 1;
+ rating | min 
+--------+-----
+(0 rows)
+
+select bid, count(*) as num_reservations
+from   Reserves 
+group  by bid
+having count(*) >= 3;
+ bid | num_reservations 
+-----+------------------
+ 101 |                3
+ 102 |                4
+(2 rows)
+
+select B.bid, B.name, MIN(S.age), AVG(S.rating)
+from   Boats B, Reserves R, Sailors S
+where  B.bid = R.bid
+and    R.sid = S.sid
+and    B.color = 'red'
+group by B.bid, B.name;
+ bid |   name    | min |        avg         
+-----+-----------+-----+--------------------
+ 102 | Interlake |  35 | 8.0000000000000000
+(1 row)
+
+select   R.sid, count (*)
+from     Reserves R, Sailors S
+where    R.sid = S.sid
+and      S.age >= 20
+group by R.sid;
+ sid | count 
+-----+-------
+   1 |     3
+   3 |     2
+   2 |     2
+(3 rows)
+
+select sid, count(*)
+from   Reserves
+group by sid
+having count(*) >=2;
+ sid | count 
+-----+-------
+   1 |     3
+   3 |     2
+   2 |     2
+(3 rows)
+
+select * 
+from Reserves
+order by bid;
+ sid | bid |    day     
+-----+-----+------------
+   1 | 101 | 2012-10-10
+   3 | 101 | 2012-11-07
+   1 | 101 | 2012-07-10
+   3 | 102 | 2012-08-07
+   2 | 102 | 2012-11-07
+   1 | 102 | 2012-10-10
+   2 | 102 | 2012-09-11
+   4 | 103 | 2012-09-19
+(8 rows)
+
+select * 
+from Reserves
+order by bid desc, sid;
+ sid | bid |    day     
+-----+-----+------------
+   4 | 103 | 2012-09-19
+   1 | 102 | 2012-10-10
+   2 | 102 | 2012-11-07
+   2 | 102 | 2012-09-11
+   3 | 102 | 2012-08-07
+   1 | 101 | 2012-10-10
+   1 | 101 | 2012-07-10
+   3 | 101 | 2012-11-07
+(8 rows)
+
+select   R.bid, count(*) num_reservations, avg(S.rating) avg_rating
+from     Reserves R, Sailors S
+where    R.sid = S.sid
+group by R.bid
+order by avg_rating;
+ bid | num_reservations |     avg_rating     
+-----+------------------+--------------------
+ 101 |                3 | 6.3333333333333333
+ 103 |                1 | 8.0000000000000000
+ 102 |                4 | 8.0000000000000000
+(3 rows)
+
