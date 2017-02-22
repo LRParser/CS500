@@ -8,19 +8,23 @@ public class Group {
 	private String name;
 	private String about;
 	private String email;
-	private int is_verified;  // 0 for not verified and 1 for verified
+	private boolean is_verified;  
 	private int posts;       // number of total posts
-	private int profile_picture; // 0 if the user doesn't have a profile picture 1 other wise
+	private boolean profile_picture; 
 	private String contact_address;
 	private int member_count;
-	private Date update_time;
+	private Date update_date;
 	private String privacy;
 	private Date created;
+	private int user_id;
 	
 	
-	public Group(int id)
+	public Group(int id, String name, String about, String email, boolean is_verified, boolean profile_picture,
+					String contact_address, int member_count, Date update_date, String privacy, Date created, int user_id)
 	{
-		this.id = id;
+		this.id = id; this.name = name; this.about = about; this.email = email; this.is_verified = is_verified; this.profile_picture = profile_picture;
+		this.contact_address = contact_address; this.member_count = member_count; this.update_date = update_date;
+		this.privacy = privacy; this.created = created; this.user_id = user_id;
 	}
 	
 	public void setId(int id)
@@ -45,7 +49,7 @@ public class Group {
 		this.email = email;
 	}
 	
-	public void setIsverfied(int is_verified)
+	public void setIsverfied(boolean is_verified)
 	{
 		this.is_verified = is_verified;
 	}
@@ -55,7 +59,7 @@ public class Group {
 		this.posts = posts;
 	}
 	
-	public void setProfilePicture(int profile_picture)
+	public void setProfilePicture(boolean profile_picture)
 	{
 		this.profile_picture = profile_picture;
 	}
@@ -70,9 +74,9 @@ public class Group {
 		this.member_count = member_count;
 	}
 	
-	public void setUpdateTime(Date update_time)
+	public void setUpdateTime(Date update_date)
 	{
-		this.update_time = update_time;
+		this.update_date = update_date;
 	}
 	
 	public void setPrivacy(String privacy)
@@ -108,7 +112,7 @@ public class Group {
 		return this.email;
 	}
 	
-	public int getIsverfied()
+	public boolean getIsverified()
 	{
 		return this.is_verified;
 	}
@@ -118,7 +122,7 @@ public class Group {
 		return this.posts;
 	}
 	
-	public int getProfilePicture()
+	public boolean getProfilePicture()
 	{
 		return this.profile_picture;
 	}
@@ -135,7 +139,7 @@ public class Group {
 	
 	public Date getUpdateTime()
 	{
-		return this.update_time;
+		return this.update_date;
 	}
 	
 	public String getPrivacy()
@@ -147,6 +151,9 @@ public class Group {
 	{
 		return this.created;
 	}
-	
+	public int getUserId()
+	{
+		return this.user_id;
+	}
 	
 }

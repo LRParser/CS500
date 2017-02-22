@@ -4,10 +4,14 @@ public class UserEducationExperience {
 	private int id;
 	private String school;
 	private String studied_with;
+	private int user_id;
 	
-	public UserEducationExperience(int id)
+	public UserEducationExperience(int id, String school, String studied_with, int user_id)
 	{
 		this.id = id;
+		this.school = school;
+		this.studied_with = studied_with;
+		this.user_id = user_id;
 	}
 	
 	
@@ -39,5 +43,9 @@ public class UserEducationExperience {
 	public String getStudiedWith()
 	{
 		return this.studied_with;
+	}
+	public int getUserId()
+	{
+		return this.user_id;
 	}
 }

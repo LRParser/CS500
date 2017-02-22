@@ -6,15 +6,29 @@
 </head>
 <body>
 <h1 align="center"> Lookup Content</h1>
-<form method="POST" action = "RegistrarServlet">
+<form method="POST" action = "LookupServlet">
+<h3 align="left"> User Information Look Up</h3>
+  <input type="radio" name="action" value="user"> User Lookup<br>
+  <input type="radio" name="action" value="education"> User Education Experience<br>
+  <input type="radio" name="action" value="work"> User Work Experience <br>
+  <input type="radio" name="action" value="group"> Groups Owned By Users <br>
+   <input type="radio" name="action" value="page"> Pages Owned By Users <br>
+   <input type="radio" name="action" value="post"> Posts Owned By Users <br>
+  <input type="radio" name="action" value="all"> Look Up All Users <br>
+  
 
-	AccessToken: <input type = "text" name = "token"><br>
-	Page Name : <input type = "text" name = "pagename"><br>
-	Post Name: <input type = "text" name = "token"><br>
-	Group Name : <input type = "text" name = "pagename"><br>
 	
-	User Name : <input type = "text" name = "pagename"><br>
-
+	User Name : <input type = "text" name = "username"><br>
+	
+	<h3 align="left"> Page Information Look Up</h3>
+	<input type="radio" name="action" value="pagepost"> Posts Owned By Page <br>
+	
+	Page Name : <input type = "text" name = "pageusername"><br>
+	
+	<h3 align="left"> Group Information Look Up</h3>
+	<input type="radio" name="action" value="grouppost"> Posts Owned By Group <br>
+	Group Name : <input type = "text" name = "groupusername"><br>
+	
 	
 		<br><br>
 		
@@ -22,10 +36,17 @@
 		
 		
 	
-
+ 
 
 
 </form>
+
+<!-- 
+
+
+<form method ="GET" action = "LookupServlet">
+<button name="name" value="value" type="submit">Lookup All Users</button>
+</form> -->
 </body>
 </html>
 

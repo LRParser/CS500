@@ -3,11 +3,14 @@ package deception;
 public class UserWorkExperience {
 	private int id;
 	private String employer;
+	private int user_id;
 	
 	
-	public UserWorkExperience(int id)
+	public UserWorkExperience(int id, String employer, int user_id)
 	{
 		this.id = id;
+		this.employer = employer;
+		this.user_id = user_id;
 	}
 	
 	
@@ -32,6 +35,9 @@ public class UserWorkExperience {
 	{
 		return this.employer;
 	}
-	
+	public int getUserId()
+	{
+		return this.user_id;
+	}
 	
 }

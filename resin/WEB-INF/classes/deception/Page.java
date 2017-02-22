@@ -8,9 +8,9 @@ public class Page {
 	private String name;
 	private String about;
 	private String email;
-	private int is_verified;  // 0 for not verified and 1 for verified
+	private boolean is_verified;  // 0 for not verified and 1 for verified
 	private int posts;       // number of total posts
-	private int profile_picture; // 0 if the user doesn't have a profile picture 1 other wise
+	private boolean profile_picture; // 0 if the user doesn't have a profile picture 1 other wise
 	private String contact_address;
 	private int fan_count;
 	private Date founded;
@@ -18,12 +18,17 @@ public class Page {
 	private int were_here_count;
 	private String category;
 	private int overall_star_rating;
+	private int user_id;
 	
 	
-	public Page(int id)
-	{
-		this.id = id;
-	}
+	public Page(int id, String name, String about, String email, boolean is_verified, boolean profile_picture,
+			String contact_address, int fan_count, Date founded, String location, int were_here_count, String category,
+			int overall_star_rating, int user_id)
+			{
+				this.id = id; this.name = name; this.about = about; this.email = email; this.is_verified = is_verified; this.profile_picture = profile_picture;
+				this.contact_address = contact_address; this.fan_count = fan_count; this.founded = founded;this.location = location;
+				this.were_here_count = were_here_count; this.category = category; this.overall_star_rating = overall_star_rating; this.user_id = user_id;
+			}
 	
 	public void setId(int id)
 	{
@@ -47,7 +52,7 @@ public class Page {
 		this.email = email;
 	}
 	
-	public void setIsverfied(int is_verified)
+	public void setIsverified(boolean is_verified)
 	{
 		this.is_verified = is_verified;
 	}
@@ -57,7 +62,7 @@ public class Page {
 		this.posts = posts;
 	}
 	
-	public void setProfilePicture(int profile_picture)
+	public void setProfilePicture(boolean profile_picture)
 	{
 		this.profile_picture = profile_picture;
 	}
@@ -118,7 +123,7 @@ public class Page {
 		return this.email;
 	}
 	
-	public int getIsverfied()
+	public boolean getIsverified()
 	{
 		return this.is_verified;
 	}
@@ -128,7 +133,7 @@ public class Page {
 		return this.posts;
 	}
 	
-	public int getProfilePicture()
+	public boolean getProfilePicture()
 	{
 		return this.profile_picture;
 	}

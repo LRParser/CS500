@@ -10,34 +10,12 @@
 
 
 
-
-
-
   <servlet>
-    <servlet-name>registrar</servlet-name>
-    <servlet-class>edu.drexel.cs461.examples.RegistrarServlet</servlet-class>
+    <servlet-name>LookupServlet</servlet-name>
+    <servlet-class>deception.LookupServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-	  <servlet-name>registrar</servlet-name>
-	  <url-pattern>/registrar</url-pattern>
-  </servlet-mapping>
-
-
-<servlet>
-    <servlet-name>RegistrarServlet</servlet-name>
-    <servlet-class>deception.RegistrarServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-	  <servlet-name>RegistrarServlet</servlet-name>
-	  <url-pattern>/RegistrarServlet</url-pattern>
-  </servlet-mapping>
-
-  <servlet>
-    <servlet-name>hello</servlet-name>
-    <servlet-class>test.HelloServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-	  <servlet-name>hello</servlet-name>
-	  <url-pattern>/hello</url-pattern>
+    <servlet-name>LookupServlet</servlet-name>
+    <url-pattern>/LookupServlet</url-pattern>
   </servlet-mapping>
 </web-app>
