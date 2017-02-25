@@ -3,25 +3,38 @@
 <head>
 <meta charset="UTF-8">
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<script
+  src="https://code.jquery.com/jquery-3.1.1.js"
+  integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
+  crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <title>Lookup Content</title>
 </head>
 <body>
 <h1 align="center"> Lookup Content</h1>
-<form method="POST" action = "LookupServlet">
-<h3 align="left"> User Information Look Up</h3>
-  <input type="radio" name="action" value="user"> User Lookup<br>
-  <input type="radio" name="action" value="education"> User Education Experience<br>
-  <input type="radio" name="action" value="work"> User Work Experience <br>
-  <input type="radio" name="action" value="group"> Groups Owned By Users <br>
-   <input type="radio" name="action" value="page"> Pages Owned By Users <br>
-   <input type="radio" name="action" value="post"> Posts Owned By Users <br>
-  <input type="radio" name="action" value="all"> Look Up All Users <br>
-  
+<form id="userInfoForm" method="POST" action="LookupServlet">
+<h3 align="left"> User Info By Name</h3>
+	User Name (Required) : <input type = "text" name = "username" required><br>
+  <label for="selectUserQuery">Query: </label>
+  <select name="action" id="selectUserQuery" required form="userInfoForm">
+  	<option value="user">User Profile Info</option>
+  	<option value="education"> User Education Experience Lookup By Name</option>
+  	<option value="work"> User Work Experience Lookup By Name </option>
+  	<option value="group"> Groups Owned By User Lookup By Name </option>
+   	<option value="page"> Pages Owned By Users </option>
+   	<option value="post"> Posts Owned By Users</option>
+  </select>
+   <input type="submit" class="btn btn-success">
+</form>
 
-	
-	User Name : <input type = "text" name = "username"><br>
-	
+   <h3 align="left">Show All Users</h3>
+   <form method="POST" action = "LookupServlet">
+   <input type="radio" name="action" > Look Up All Users <br>
+   <input type="submit" class="btn btn-success">
+   </form>
+
+
+   <form method="POST" action = "LookupServlet">
 	<h3 align="left"> Page Information Look Up</h3>
 	<input type="radio" name="action" value="pagepost"> Posts Owned By Page <br>
 	
@@ -34,14 +47,7 @@
 	
 		<br><br>
 		
-			<input type="submit">
-		
-		
-	
- 
 
-
-</form>
 
 <!-- 
 
