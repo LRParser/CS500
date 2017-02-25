@@ -112,11 +112,17 @@ public class UserRegister {
 	 User user = null;
 	 String username = request.getParameter("username");
 		//int id1 = Integer.parseInt(request.getParameter("id"));
+      System.out.println("Looking for user with name: " + username);
       
       String query = "select * from User_ where name= '"+ username +"'";
      
+      System.out.println("Query is" + query);
+
+      
       Statement st = _conn.createStatement();
        ResultSet rs = st.executeQuery(query);
+              
+       int size = 0;
        
        while (rs.next()) {
        
@@ -131,6 +137,8 @@ public class UserRegister {
          int friends_count = rs.getInt("friends_count");
          Date member_since = rs.getDate("member_since");
          
+         size++;
+         
        
          user = new User(id, name, about, email, is_verified, profile_picture, contact_address,
         		 likes, friends_count, member_since);
@@ -139,8 +147,15 @@ public class UserRegister {
         
        }
        
+       System.out.println("ResultSet size is: "+size);
+
+       
        rs.close();
        st.close();
+       
+       if(user == null) {
+    	   System.out.println("Error - null user returned");
+       }
 
    return user;
 	  

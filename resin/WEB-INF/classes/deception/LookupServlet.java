@@ -19,7 +19,20 @@ public class LookupServlet extends HttpServlet {
 
     public void init() throws ServletException {
 	_reg = new UserRegister();
+	if(_reg == null) {
+		System.out.println("_reg is null");
+	}
+	else {
+		System.out.println("_reg is not null");
+	}
 	_message = _reg.openDBConnection("PgBundle");
+	if(_message == null) {
+		System.out.println("_message is null");
+	}
+	else {
+		System.out.println("_message is not null");
+	}
+	
     }
 
     

@@ -27,6 +27,7 @@ public class User {
 		this.email = email; this.likes = likes;
 		this.friends_count = friends_count;
 		this.member_since = member_since;
+		System.out.println("User constructed");
 		
 	}
 	
