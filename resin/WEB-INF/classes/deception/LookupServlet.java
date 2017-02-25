@@ -69,7 +69,9 @@ public class LookupServlet extends HttpServlet {
     	
     	try {
     	    User user = _reg.getSomeUser(request);
-    	    roster.add(user);
+    	    if(user != null) {
+    	    	roster.add(user);
+    	    }
     	    request.setAttribute("userlist", roster);
     	    RequestDispatcher view = request.getRequestDispatcher("userview.jsp");
     	    try {

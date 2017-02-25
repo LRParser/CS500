@@ -10,7 +10,13 @@
 </head>
 <body>
 <div>
-<table >
+
+                    <% ArrayList<User> roster = (ArrayList<User>)request.getAttribute("userlist"); %>                     	
+					<%if(roster == null || roster.size() == 0){ %>
+						<p>No results</p>
+					<%} else { %>
+
+					<table >
                     <thead>
                         <tr>
                            
@@ -27,10 +33,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <%
-                     ArrayList<User> roster = (ArrayList<User>)request.getAttribute("userlist");	
+					<%
                     for (int i=0; i<roster.size(); i++) {
-                		User user = (User)roster.get(i);%>
+                		User user = (User)roster.get(i);
+                	%>
                 		<tr>
                         
                         <th><%=user.getId() %></th>
@@ -44,10 +50,10 @@
                         <th><%=user.getFriendsCount() %></th> 
                         <th><%=user.getMemberSince() %></th> 
                     </tr>
-                		
-                	   <% }
-                    %>
-                    
+					<% } %>
+					<% } %>
+
+                	                       
                     </tbody>
 </table>
 </div>

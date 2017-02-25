@@ -154,7 +154,7 @@ public class UserRegister {
        st.close();
        
        if(user == null) {
-    	   System.out.println("Error - null user returned");
+    	   System.out.println("Queried for User but none found - did you specify a name?");
        }
 
    return user;
