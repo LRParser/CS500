@@ -37,28 +37,32 @@
   	<option value="allWork">User Work Experience </option>
   	<option value="allGroups">Groups</option>
    	<option value="allPages">Pages</option>
-   	<option value="allPosts">Posts</option>
+   	<option value="allUserPosts">User Posts</option>
+  </select>
+   <input type="submit" class="btn btn-success">
+   </form>
+   
+   <h3 align="left">Search for Posts by Page Name</h3>
+   <form id="findPostsByPage" method="POST" action = "LookupServlet">
+   	Page Name (Required) : <input type = "text" name = "pagename" required><br>
+   <label for="findPostsByPageQuery">Query: </label>
+   <select name="action" id="findPostsByPageQuery" required form="findPostsByPage">
+  	<option value="pagepost">Posted Under Page</option>
+  </select>
+   <input type="submit" class="btn btn-success">
+   </form>
+   
+      <h3 align="left">Search for Posts by Group Name</h3>
+   <form id="findPostsByGroup" method="POST" action = "LookupServlet">
+   	Group Name (Required) : <input type = "text" name = "groupname" required><br>
+   <label for="findPostsByGroupQuery">Query: </label>
+   <select name="action" id="findPostsByGroupQuery" required form="findPostsByGroup">
+  	<option value="grouppost">By Group</option>
   </select>
    <input type="submit" class="btn btn-success">
    </form>
 
 
-   <form method="POST" action = "LookupServlet">
-	<h3 align="left"> Page Information Look Up</h3>
-	<input type="radio" name="action" value="pagepost"> Posts Owned By Page <br>
-	</form>
-	
-	<form>
-	Page Name : <input type = "text" name = "pageusername"><br>
-	
-	<h3 align="left"> Group Information Look Up</h3>
-	<input type="radio" name="action" value="grouppost"> Posts Owned By Group <br>
-	Group Name : <input type = "text" name = "groupusername"><br>
-	
-	
-		<br><br>
-		
-</form>
 
 </body>
 </html>

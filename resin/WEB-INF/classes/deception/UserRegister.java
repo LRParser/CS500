@@ -405,6 +405,40 @@ public class UserRegister {
 	   return allPages;
   }
 
+  public ArrayList<UserPost> getAllUserPosts() throws SQLException {
+	  ArrayList<UserPost> allUserPosts = new ArrayList<UserPost>();
+			      
+	     String query = "select * from user_post";
+	     
+	      Statement st = _conn.createStatement();
+	       ResultSet rs = st.executeQuery(query);
+	       
+	       while (rs.next()) {
+	       
+	    	   
+		        int id = rs.getInt("id");
+		        Date update_date = rs.getDate("update_date");
+		        String name = rs.getString("name");
+		         String reactions = rs.getString("reactions");
+		         int shares_count = rs.getInt("shares_count");
+		         String message = rs.getString("message");
+		         int user_id = rs.getInt("user_id");
+		         
+		         UserPost post = new UserPost(id, update_date, name, reactions, shares_count, message, user_id);
+		       
+		        
+		         allUserPosts.add(post);
+	          
+	        
+	       }
+	       
+	       rs.close();
+	       st.close();
+
+	   return allUserPosts;
+  }
+
+  
 public ArrayList<deception.Page> getUserOwnedPages(HttpServletRequest request) throws SQLException{
 	  ArrayList<deception.Page> allPages = new ArrayList<deception.Page>();
 		 String username = request.getParameter("username");
@@ -452,6 +486,8 @@ public ArrayList<deception.Page> getUserOwnedPages(HttpServletRequest request) t
 	   return allPages;
 		  
 	  }
+
+
   
   public ArrayList<UserPost> getUserOwnedPosts(HttpServletRequest request) throws SQLException{
 	  ArrayList<UserPost> allPosts = new ArrayList<UserPost>();
@@ -493,12 +529,12 @@ public ArrayList<deception.Page> getUserOwnedPages(HttpServletRequest request) t
  
   public ArrayList<PagePost> getPageOwnedPosts(HttpServletRequest request) throws SQLException{
 	  ArrayList<PagePost> allPosts = new ArrayList<PagePost>();
-		 String username = request.getParameter("pageusername");
+		 String pagename = request.getParameter("pagename");
 			
 	      
 	     String query = "select O.id,O.update_date, O.name, O.reactions, O.shares_count, O.message, O.page_id" +
 	    	  " from Page_Post O, Owns_Page U "
-	    		  + "where O.page_id = U.id and U.name = '"+ username +"'";
+	    		  + "where O.page_id = U.id and U.name = '"+ pagename +"'";
 	     
 	      Statement st = _conn.createStatement();
 	       ResultSet rs = st.executeQuery(query);
@@ -531,12 +567,12 @@ public ArrayList<deception.Page> getUserOwnedPages(HttpServletRequest request) t
   
   public ArrayList<GroupPost> getGroupOwnedPosts(HttpServletRequest request) throws SQLException{
 	  ArrayList<GroupPost> allPosts = new ArrayList<GroupPost>();
-		 String username = request.getParameter("groupusername");
+		 String groupname = request.getParameter("groupname");
 			
 	      
 	     String query = "select O.id,O.update_date, O.name, O.reactions, O.shares_count, O.message, O.group_id" +
 	    	  " from Group_Post O, Owns_Group U "
-	    		  + "where O.group_id = U.id and U.name = '"+ username +"'";
+	    		  + "where O.group_id = U.id and U.name = '"+ groupname +"'";
 	     
 	      Statement st = _conn.createStatement();
 	       ResultSet rs = st.executeQuery(query);

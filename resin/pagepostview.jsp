@@ -32,13 +32,13 @@
                 		%>
                 		<tr>
                         
-                        <th><%=post.getId() %></th>
-                        <th><%=post.getUpdateDate()%></th>
-                        <th><%=post.getName()%></th>
-                        <th><%=post.getReactions() %></th>
-                        <th><%=post.getSharesCount() %></th>  
-                        <th><%=post.getMessage()%></th>
-                        <th><%=post.getPageId() %></th>
+                        <td><%=post.getId() %></td>
+                        <td><%=post.getUpdateDate()%></td>
+                        <td><%=post.getName()%></td>
+                        <td><%=post.getReactions() %></td>
+                        <td><%=post.getSharesCount() %></td>  
+                        <td><%=post.getMessage()%></td>
+                        <td><%=post.getPageId() %></td>
                         
                     </tr>
                 		

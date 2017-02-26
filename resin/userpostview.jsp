@@ -26,7 +26,7 @@
                     </thead>
                     <tbody>
                     <%
-                    ArrayList<UserPost> allPosts = (ArrayList<UserPost>)request.getAttribute("allposts");	
+                    ArrayList<UserPost> allPosts = (ArrayList<UserPost>)request.getAttribute("alluserposts");	
                     for (int i=0; i<allPosts.size(); i++) {
                 		UserPost post = allPosts.get(i);
                 		%>

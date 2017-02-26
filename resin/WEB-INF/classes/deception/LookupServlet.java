@@ -131,6 +131,29 @@ public class LookupServlet extends HttpServlet {
     	
         }
     
+    public void printAllUserPosts(PrintWriter out, HttpServletRequest request, HttpServletResponse response ) {
+    	
+    	try {
+    	    ArrayList<UserPost> allUserPosts = _reg.getAllUserPosts();
+    	    request.setAttribute("alluserposts", allUserPosts);
+    	    RequestDispatcher view = request.getRequestDispatcher("userpostview.jsp");
+    	    try {
+				view.forward(request, response);
+			} catch (ServletException e) {
+				
+				e.printStackTrace();
+			} catch (IOException e) {
+				
+				e.printStackTrace();
+			}
+    	    
+    	    
+    	} catch (SQLException sqle) {
+    	    sqle.printStackTrace(out);
+    	}
+    	
+        }
+    
     public void printAllUserEducationExperiences(PrintWriter out, HttpServletRequest request, HttpServletResponse response ) {
     	
     	try {
@@ -276,8 +299,8 @@ public class LookupServlet extends HttpServlet {
     {
     	try {
     		ArrayList<UserPost> allPosts = _reg.getUserOwnedPosts(request);
-			request.setAttribute("allposts", allPosts);
-    	    RequestDispatcher view = request.getRequestDispatcher("postview.jsp");
+			request.setAttribute("alluserposts", allPosts);
+    	    RequestDispatcher view = request.getRequestDispatcher("userpostview.jsp");
     	    try {
 				view.forward(request, response);
 			} catch (ServletException e) {
@@ -370,8 +393,8 @@ public class LookupServlet extends HttpServlet {
 		else if(action.equals("allPages")) {
 			printAllPages(out,request,response);
 		}
-		else if (action.equals("allPosts")) {
-			
+		else if (action.equals("allUserPosts")) {
+			printAllUserPosts(out,request,response);
 		}
 		else if(action.equals("allEducation")) {
 			printAllUserEducationExperiences(out,request,response);
