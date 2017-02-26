@@ -26,7 +26,7 @@
                     </thead>
                     <tbody>
                     <%
-                    ArrayList<GroupPost> allPosts = (ArrayList<GroupPost>)request.getAttribute("allposts");	
+                    ArrayList<GroupPost> allPosts = (ArrayList<GroupPost>)request.getAttribute("allgroupposts");	
                     for (int i=0; i<allPosts.size(); i++) {
                 		GroupPost post = allPosts.get(i);
                 		%>

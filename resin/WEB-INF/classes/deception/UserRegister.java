@@ -438,6 +438,72 @@ public class UserRegister {
 	   return allUserPosts;
   }
 
+  public ArrayList<PagePost> getAllPagePosts() throws SQLException {
+	  ArrayList<PagePost> allPagePosts = new ArrayList<PagePost>();
+			      
+	     String query = "select * from page_post";
+	     
+	      Statement st = _conn.createStatement();
+	       ResultSet rs = st.executeQuery(query);
+	       
+	       while (rs.next()) {
+	       
+	    	   
+		        int id = rs.getInt("id");
+		        Date update_date = rs.getDate("update_date");
+		        String name = rs.getString("name");
+		         String reactions = rs.getString("reactions");
+		         int shares_count = rs.getInt("shares_count");
+		         String message = rs.getString("message");
+		         int page_id = rs.getInt("page_id");
+		         
+		         PagePost post = new PagePost(id, update_date, name, reactions, shares_count, message, page_id);
+		       
+		        
+		         allPagePosts.add(post);
+	          
+	        
+	       }
+	       
+	       rs.close();
+	       st.close();
+
+	   return allPagePosts;
+  }
+
+  public ArrayList<GroupPost> getAllGroupPosts() throws SQLException {
+	  ArrayList<GroupPost> allGroupPosts = new ArrayList<GroupPost>();
+			      
+	     String query = "select * from group_post";
+	     
+	      Statement st = _conn.createStatement();
+	       ResultSet rs = st.executeQuery(query);
+	       
+	       while (rs.next()) {
+	       
+	    	   
+		        int id = rs.getInt("id");
+		        Date update_date = rs.getDate("update_date");
+		        String name = rs.getString("name");
+		         String reactions = rs.getString("reactions");
+		         int shares_count = rs.getInt("shares_count");
+		         String message = rs.getString("message");
+		         int group_id = rs.getInt("group_id");
+		         
+		         GroupPost post = new GroupPost(id, update_date, name, reactions, shares_count, message, group_id);
+		       
+		        
+		         allGroupPosts.add(post);
+	          
+	        
+	       }
+	       
+	       rs.close();
+	       st.close();
+
+	   return allGroupPosts;
+  }
+
   
 public ArrayList<deception.Page> getUserOwnedPages(HttpServletRequest request) throws SQLException{
 	  ArrayList<deception.Page> allPages = new ArrayList<deception.Page>();

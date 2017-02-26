@@ -146,13 +146,57 @@ public class LookupServlet extends HttpServlet {
 				
 				e.printStackTrace();
 			}
-    	    
-    	    
+
     	} catch (SQLException sqle) {
     	    sqle.printStackTrace(out);
     	}
     	
         }
+    
+    public void printAllPagePosts(PrintWriter out, HttpServletRequest request, HttpServletResponse response ) {
+    	
+    	try {
+    	    ArrayList<PagePost> allPagePosts = _reg.getAllPagePosts();
+    	    request.setAttribute("allpageposts", allPagePosts);
+    	    RequestDispatcher view = request.getRequestDispatcher("pagepostview.jsp");
+    	    try {
+				view.forward(request, response);
+			} catch (ServletException e) {
+				
+				e.printStackTrace();
+			} catch (IOException e) {
+				
+				e.printStackTrace();
+			}
+
+    	} catch (SQLException sqle) {
+    	    sqle.printStackTrace(out);
+    	}
+    	
+        }
+    
+    public void printAllGroupPosts(PrintWriter out, HttpServletRequest request, HttpServletResponse response ) {
+    	
+    	try {
+    	    ArrayList<GroupPost> allGroupPosts = _reg.getAllGroupPosts();
+    	    request.setAttribute("allgroupposts", allGroupPosts);
+    	    RequestDispatcher view = request.getRequestDispatcher("grouppostview.jsp");
+    	    try {
+				view.forward(request, response);
+			} catch (ServletException e) {
+				
+				e.printStackTrace();
+			} catch (IOException e) {
+				
+				e.printStackTrace();
+			}
+
+    	} catch (SQLException sqle) {
+    	    sqle.printStackTrace(out);
+    	}
+    	
+        }
+    
     
     public void printAllUserEducationExperiences(PrintWriter out, HttpServletRequest request, HttpServletResponse response ) {
     	
@@ -322,7 +366,7 @@ public class LookupServlet extends HttpServlet {
     {
     	try {
     		ArrayList<PagePost> allPosts = _reg.getPageOwnedPosts(request);
-			request.setAttribute("allposts", allPosts);
+			request.setAttribute("allpageposts", allPosts);
     	    RequestDispatcher view = request.getRequestDispatcher("pagepostview.jsp");
     	    try {
 				view.forward(request, response);
@@ -345,7 +389,7 @@ public class LookupServlet extends HttpServlet {
     {
     	try {
     		ArrayList<GroupPost> allPosts = _reg.getGroupOwnedPosts(request);
-			request.setAttribute("allposts", allPosts);
+			request.setAttribute("allgroupposts", allPosts);
     	    RequestDispatcher view = request.getRequestDispatcher("grouppostview.jsp");
     	    try {
 				view.forward(request, response);
@@ -392,6 +436,12 @@ public class LookupServlet extends HttpServlet {
 		}
 		else if(action.equals("allPages")) {
 			printAllPages(out,request,response);
+		}
+		else if(action.equals("allPagePosts")) {
+			printAllPagePosts(out,request,response);
+		}
+		else if(action.equals("allGroupPosts")) {
+			printAllGroupPosts(out,request,response);
 		}
 		else if (action.equals("allUserPosts")) {
 			printAllUserPosts(out,request,response);

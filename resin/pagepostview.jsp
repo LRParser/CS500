@@ -26,7 +26,7 @@
                     </thead>
                     <tbody>
                     <%
-                    ArrayList<PagePost> allPosts = (ArrayList<PagePost>)request.getAttribute("allposts");	
+                    ArrayList<PagePost> allPosts = (ArrayList<PagePost>)request.getAttribute("allpageposts");	
                     for (int i=0; i<allPosts.size(); i++) {
                 		PagePost post = allPosts.get(i);
                 		%>
