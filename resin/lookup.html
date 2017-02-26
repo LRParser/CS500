@@ -29,15 +29,17 @@
 
    <h3 align="left">Show All Users</h3>
    <form method="POST" action = "LookupServlet">
-   <input type="radio" name="action" > Look Up All Users <br>
-   <input type="submit" class="btn btn-success">
+   <label for="getAllInput">Get All: </label>
+   <input id="getAllInput" type="submit" name="action" value="all" class="btn btn-success">
    </form>
 
 
    <form method="POST" action = "LookupServlet">
 	<h3 align="left"> Page Information Look Up</h3>
 	<input type="radio" name="action" value="pagepost"> Posts Owned By Page <br>
+	</form>
 	
+	<form>
 	Page Name : <input type = "text" name = "pageusername"><br>
 	
 	<h3 align="left"> Group Information Look Up</h3>
@@ -47,14 +49,8 @@
 	
 		<br><br>
 		
+</form>
 
-
-<!-- 
-
-
-<form method ="GET" action = "LookupServlet">
-<button name="name" value="value" type="submit">Lookup All Users</button>
-</form> -->
 </body>
 </html>
 
