@@ -61,7 +61,54 @@ public class LookupServlet extends HttpServlet {
     	}
     	
         }
+    
+    public void printAllUserWorkExperiences(PrintWriter out, HttpServletRequest request, HttpServletResponse response ) {
+	
+    	try {
+    	    ArrayList<UserWorkExperience> roster = _reg.getAllUserWorkExperiences();
+    	    request.setAttribute("userwork", roster);
+    	    RequestDispatcher view = request.getRequestDispatcher("userworkview.jsp");
+    	    try {
+				view.forward(request, response);
+			} catch (ServletException e) {
+				
+				e.printStackTrace();
+			} catch (IOException e) {
+				
+				e.printStackTrace();
+			}
+    	    
+    	    
+    	} catch (SQLException sqle) {
+    	    sqle.printStackTrace(out);
+    	}
     	
+        }
+    	
+    public void printAllUserEducationExperiences(PrintWriter out, HttpServletRequest request, HttpServletResponse response ) {
+    	
+    	try {
+    	    ArrayList<UserEducationExperience> roster = _reg.getAllUserEducationExperiences();
+    	    request.setAttribute("usereducation", roster);
+    	    RequestDispatcher view = request.getRequestDispatcher("usereducationview.jsp");
+    	    try {
+				view.forward(request, response);
+			} catch (ServletException e) {
+				
+				e.printStackTrace();
+			} catch (IOException e) {
+				
+				e.printStackTrace();
+			}
+    	    
+    	    
+    	} catch (SQLException sqle) {
+    	    sqle.printStackTrace(out);
+    	}
+    	
+        }
+    	
+    
     public void printSomeUser(PrintWriter out, HttpServletRequest request, HttpServletResponse response ) {
 
     	
@@ -90,11 +137,11 @@ public class LookupServlet extends HttpServlet {
     	}
     	
         }
-    public void printUserEducationExperience(PrintWriter out, HttpServletRequest request, HttpServletResponse response)
+    public void printUserEducationExperiencesByName(PrintWriter out, HttpServletRequest request, HttpServletResponse response)
     {
     	try {
-			UserEducationExperience use = _reg.getUserEducationExperience(request);
-			request.setAttribute("usereducation", use);
+			ArrayList<UserEducationExperience> roster = _reg.getUserEducationExperiencesByName(request);
+			request.setAttribute("usereducation", roster);
     	    RequestDispatcher view = request.getRequestDispatcher("usereducationview.jsp");
     	    try {
 				view.forward(request, response);
@@ -112,11 +159,11 @@ public class LookupServlet extends HttpServlet {
 		}
     	
     }
-    public void printUserWorkExperience(PrintWriter out, HttpServletRequest request, HttpServletResponse response)
+    public void printAllWorkExperiencesForUser(PrintWriter out, HttpServletRequest request, HttpServletResponse response)
     {
     	try {
-			UserWorkExperience uwe = _reg.getUserWorkExperience(request);
-			request.setAttribute("userwork", uwe);
+			ArrayList<UserWorkExperience> allWorkExperiencesForUser = _reg.getSpecificUserWorkExperiences(request);
+			request.setAttribute("userwork", allWorkExperiencesForUser);
     	    RequestDispatcher view = request.getRequestDispatcher("userworkview.jsp");
     	    try {
 				view.forward(request, response);
@@ -253,7 +300,6 @@ public class LookupServlet extends HttpServlet {
   
 	response.setContentType("text/html");
 	PrintWriter out = response.getWriter();
-	
       
 	if (!_message.startsWith("Servus")) {
 		
@@ -262,7 +308,32 @@ public class LookupServlet extends HttpServlet {
 	    out.println("</table>");
 		out.println("</html>");
 	} else {
-	    printUser(out, request, response);
+		
+		String action = request.getParameter("action");
+		
+		if(action.equals("allUsers"))
+		{
+		    printUser(out, request, response);
+		}
+		else if(action.equals("allWork")) {
+			printAllUserWorkExperiences(out,request,response);
+		}
+		else if(action.equals("allGroups")) {
+			
+		}
+		else if (action.equals("allPosts")) {
+			
+		}
+		else if(action.equals("allEducation")) {
+			printAllUserEducationExperiences(out,request,response);
+		}
+		else {
+			out.println("<html><head></head><body>");
+		    out.println("<h1>Received GET request that could not be parsed</h1>");
+		    out.println("</table>");
+			out.println("</html>");
+		}
+		
 	}
 	  
 	
@@ -304,14 +375,14 @@ public class LookupServlet extends HttpServlet {
 		    out.println("<h1>Databaase connection failed to open " + _message + "</h1>");
 		    out.println("</html>");
 		} else {
-		    printUserEducationExperience(out, request, response);
+		    printUserEducationExperiencesByName(out, request, response);
 		}
 		  
 		
 		
 		
 	}
-	else if (action.equals("all"))
+	else if (action.equals("allUsers"))
 	{
 		doGet(request, response);
 		
@@ -324,12 +395,11 @@ public class LookupServlet extends HttpServlet {
 		if (!_message.startsWith("Servus")) {
 		    out.println("<h1>Databaase connection failed to open " + _message + "</h1>");
 		} else {
-		    printUserWorkExperience(out, request, response);
+			printAllWorkExperiencesForUser(out, request, response);
 		}
 		  
 		out.println("</table>");
 		out.println("</html>");
-		
 	}
 	else if(action.equals("group"))
 	{

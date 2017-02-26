@@ -10,7 +10,13 @@
 </head>
 <body>
 <div>
-<table >
+
+<% ArrayList<UserEducationExperience> roster = (ArrayList<UserEducationExperience>)request.getAttribute("usereducation"); %>                     	
+					<%if(roster == null || roster.size() == 0){ %>
+						<p>No results</p>
+					<%} else { %>
+
+					<table >
                     <thead>
                         <tr>
                            
@@ -18,27 +24,26 @@
                             <th>School</th>
                             <th>Studied With</th>
                             <th>User ID</th>
-                            
                         </tr>
                     </thead>
                     <tbody>
-                    <%
-                   UserEducationExperience use = (UserEducationExperience)request.getAttribute("usereducation");	
-                    %>
+					<%
+                    for (int i=0; i<roster.size(); i++) {
+                		UserEducationExperience uee = (UserEducationExperience)roster.get(i);
+                	%>
                 		<tr>
                         
-                        <th><%=use.getId() %></th>
-                        <th><%=use.getSchool()%></th>
-                        <th><%=use.getStudiedWith()%></th>
-                        <th><%=use.getUserId()%></th>
-                        
+                        <td><%=uee.getId() %></td>
+                        <td><%=uee.getSchool()%></td>
+                        <td><%=uee.getStudiedWith()%></td>
+                        <td><%=uee.getUserId()%></td>
                     </tr>
-                		
-                	   
-                    
-                    
+					<% } %>
+					<% } %>
+
+                	                       
                     </tbody>
-</table>
+                    </table>
 </div>
 
 

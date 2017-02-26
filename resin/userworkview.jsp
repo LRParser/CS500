@@ -10,35 +10,39 @@
 </head>
 <body>
 <div>
-<table >
+
+<% ArrayList<UserWorkExperience> roster = (ArrayList<UserWorkExperience>)request.getAttribute("userwork"); %>                     	
+					<%if(roster == null || roster.size() == 0){ %>
+						<p>No results</p>
+					<%} else { %>
+
+					<table >
                     <thead>
                         <tr>
                            
                             <th>ID</th>
                             <th>Employer</th>
-                            
                             <th>User ID</th>
-                            
                         </tr>
                     </thead>
                     <tbody>
-                    <%
-                   UserWorkExperience uwe = (UserWorkExperience)request.getAttribute("userwork");	
-                    %>
+					<%
+                    for (int i=0; i<roster.size(); i++) {
+                		UserWorkExperience uwe = (UserWorkExperience)roster.get(i);
+                	%>
                 		<tr>
                         
-                        <th><%=uwe.getId() %></th>
-                        <th><%=uwe.getEmployer()%></th>
-                        
-                        <th><%=uwe.getUserId()%></th>
-                        
+                        <td><%=uwe.getId() %></td>
+                        <td><%=uwe.getEmployer()%></td>
+                        <td><%=uwe.getUserId()%></td>
                     </tr>
-                		
-                	   
-                    
-                    
+					<% } %>
+					<% } %>
+
+                	                       
                     </tbody>
-</table>
+                    </table>
+
 </div>
 
 

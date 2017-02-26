@@ -27,10 +27,18 @@
    <input type="submit" class="btn btn-success">
 </form>
 
-   <h3 align="left">Show All Users</h3>
-   <form method="POST" action = "LookupServlet">
-   <label for="getAllInput">Get All: </label>
-   <input id="getAllInput" type="submit" name="action" value="all" class="btn btn-success">
+   <h3 align="left">Show All</h3>
+   <form id="getAllForm" method="GET" action = "LookupServlet">
+   <label for="selectAllQuery">Get All: </label>
+   <select name="action" id="selectAllQuery" required form="getAllForm">
+  	<option value="allUsers">User Info</option>
+  	<option value="allEducation">User Education Experience</option>
+  	<option value="allWork">User Work Experience </option>
+  	<option value="allGroups">Groups</option>
+   	<option value="allPags">Pages</option>
+   	<option value="allPosts">Posts</option>
+  </select>
+   <input type="submit" class="btn btn-success">
    </form>
 
 

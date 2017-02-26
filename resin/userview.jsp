@@ -39,16 +39,16 @@
                 	%>
                 		<tr>
                         
-                        <th><%=user.getId() %></th>
-                        <th><%=user.getName() %></th>
-                        <th><%=user.getAbout() %></th>
-                        <th><%=user.getEmail() %></th>
-                        <th><%=user.getIsverified() %></th>  
-                        <th><%=user.getProfilePicture() %></th>
-                        <th><%=user.getContactAddress() %></th>
-                        <th><%=user.getLikes() %></th>
-                        <th><%=user.getFriendsCount() %></th> 
-                        <th><%=user.getMemberSince() %></th> 
+                        <td><%=user.getId() %></td>
+                        <td><%=user.getName() %></td>
+                        <td><%=user.getAbout() %></td>
+                        <td><%=user.getEmail() %></td>
+                        <td><%=user.getIsverified() %></td>  
+                        <td><%=user.getProfilePicture() %></td>
+                        <td><%=user.getContactAddress() %></td>
+                        <td><%=user.getLikes() %></td>
+                        <td><%=user.getFriendsCount() %></td> 
+                        <td><%=user.getMemberSince() %></td> 
                     </tr>
 					<% } %>
 					<% } %>

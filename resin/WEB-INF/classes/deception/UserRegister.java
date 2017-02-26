@@ -161,12 +161,10 @@ public class UserRegister {
 	  
   }
   
-  public UserEducationExperience getUserEducationExperience(HttpServletRequest request) throws SQLException{
-	  UserEducationExperience use = null;
+  public ArrayList<UserEducationExperience> getUserEducationExperiencesByName(HttpServletRequest request) throws SQLException{
+	  ArrayList<UserEducationExperience> roster = new ArrayList<UserEducationExperience>();
 		 String username = request.getParameter("username");
-			
-			
-	      
+
 	      String query = "select UE.id, UE.school,UE.studied_with, UE.user_id from UserEducationExperience_has UE, User_ U where UE.user_id = U.id and U.name = '"+ username +"'";
 	     
 	      Statement st = _conn.createStatement();
@@ -180,7 +178,7 @@ public class UserRegister {
 	         String studied_with = rs.getString("studied_with");
 	         int user_id = rs.getInt("user_id");
 	         
-	         use = new UserEducationExperience(id, school, studied_with, user_id);
+	         roster.add(new UserEducationExperience(id, school, studied_with, user_id));
 	       
 	        
 	         
@@ -191,15 +189,69 @@ public class UserRegister {
 	       rs.close();
 	       st.close();
 
-	   return use;
+	   return roster;
 		  
 	  }
   
-  public UserWorkExperience getUserWorkExperience(HttpServletRequest request) throws SQLException{
+  public ArrayList<UserWorkExperience> getAllUserWorkExperiences() throws SQLException{
+		  ArrayList<UserWorkExperience> allExperiences = new ArrayList<UserWorkExperience>();
+
+	      String query = "select * from UserWorkExperience_has UWE";
+	     
+	      Statement st = _conn.createStatement();
+	       ResultSet rs = st.executeQuery(query);
+	       
+	       while (rs.next()) {
+	       
+	        
+	         String employer = rs.getString("employer");
+	         int id = rs.getInt("id");
+	     
+	         int user_id = rs.getInt("user_id");
+	   	  	UserWorkExperience uwe = new UserWorkExperience(id, employer, user_id);
+	         allExperiences.add(uwe);
+	        
+	       }
+	       
+	       rs.close();
+	       st.close();
+
+	   return allExperiences;
+		  
+	  }
+  
+  public ArrayList<UserEducationExperience> getAllUserEducationExperiences() throws SQLException{
+	  ArrayList<UserEducationExperience> allExperiences = new ArrayList<UserEducationExperience>();
+
+      String query = "select * from UserEducationExperience_has UEE";
+     
+      Statement st = _conn.createStatement();
+       ResultSet rs = st.executeQuery(query);
+       
+       while (rs.next()) {
+    	   
+	         String school = rs.getString("school");
+	         int id = rs.getInt("id");
+	         String studied_with = rs.getString("studied_with");
+	         int user_id = rs.getInt("user_id");
+	         
+	         UserEducationExperience uee = new UserEducationExperience(id, school, studied_with, user_id);
+	         allExperiences.add(uee);
+        
+       }
+       
+       rs.close();
+       st.close();
+
+   return allExperiences;
+	  
+  }
+  
+  public ArrayList<UserWorkExperience> getSpecificUserWorkExperiences(HttpServletRequest request) throws SQLException{
 	  UserWorkExperience uwe = null;
 		 String username = request.getParameter("username");
-			
-	      
+		  ArrayList<UserWorkExperience> allExperiences = new ArrayList<UserWorkExperience>();
+
 	      String query = "select UWE.id, UWE.employer, UWE.user_id from UserWorkExperience_has UWE, User_ U where UWE.user_id = U.id and U.name = '"+ username +"'";
 	     
 	      Statement st = _conn.createStatement();
@@ -214,7 +266,7 @@ public class UserRegister {
 	         int user_id = rs.getInt("user_id");
 	         
 	         uwe = new UserWorkExperience(id, employer, user_id);
-	       
+	         allExperiences.add(uwe);
 	        
 	         
 	          
@@ -224,7 +276,7 @@ public class UserRegister {
 	       rs.close();
 	       st.close();
 
-	   return uwe;
+	   return allExperiences;
 		  
 	  }
   public ArrayList<Group> getUserOwnedGroups(HttpServletRequest request) throws SQLException{
