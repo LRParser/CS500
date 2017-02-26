@@ -13,6 +13,25 @@
 <body>
 <h1 align="center">CS500: Social Network Explorer by Joe and Zain</h1>
 <div class="container">
+
+<div class="form-group">
+   <h3 align="left">Show All</h3>
+   <form id="getAllForm" method="GET" action = "LookupServlet">
+   <label for="selectAllQuery">Query: </label>
+   <select name="action" id="selectAllQuery" required form="getAllForm">
+  	<option value="allUsers">Users</option>
+  	<option value="allEducation">User Education Experiences</option>
+  	<option value="allWork">User Work Experiences</option>
+  	<option value="allGroups">Groups</option>
+   	<option value="allPages">Pages</option>
+   	<option value="allPagePosts">Page Posts</option>
+   	<option value="allGroupPosts">Group Posts</option>
+   	<option value="allUserPosts">User Posts</option>
+  </select>
+   <input type="submit" class="btn btn-success">
+   </form>
+</div>
+
 <div class="form-group">
 <form id="userInfoForm" method="POST" action="LookupServlet">
 <h3 align="left"> Search by User Name </h3>
@@ -31,24 +50,7 @@
 </form>
 </div>
 
-<div class="form-group">
 
-   <h3 align="left">Show All</h3>
-   <form id="getAllForm" method="GET" action = "LookupServlet">
-   <label for="selectAllQuery">Query: </label>
-   <select name="action" id="selectAllQuery" required form="getAllForm">
-  	<option value="allUsers">User Info</option>
-  	<option value="allEducation">User Education Experience</option>
-  	<option value="allWork">User Work Experience </option>
-  	<option value="allGroups">Groups</option>
-   	<option value="allPages">Pages</option>
-   	<option value="allPagePosts">Page Posts</option>
-   	<option value="allGroupPosts">Group Posts</option>
-   	<option value="allUserPosts">User Posts</option>
-  </select>
-   <input type="submit" class="btn btn-success">
-   </form>
-</div>
 
 <div class="form-group">   
    <h3 align="left">Search for Page Posts by Page Name</h3>
