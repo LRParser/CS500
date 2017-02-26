@@ -21,6 +21,7 @@
                             <th>Is Verified</th>  
                             <th>Profile Picture</th>
                             <th>Contact Address</th>
+                            <th>Owner User ID</th>
                             
                         </tr>
                     </thead>
@@ -31,13 +32,14 @@
                 		Group group = (Group)allgroups.get(i);%>
                 		<tr>
                         
-                        <th><%=group.getId() %></th>
-                        <th><%=group.getName() %></th>
-                        <th><%=group.getAbout() %></th>
-                        <th><%=group.getEmail() %></th>
-                        <th><%=group.getIsverified() %></th>  
-                        <th><%=group.getProfilePicture() %></th>
-                        <th><%=group.getContactAddress() %></th>
+                        <td><%=group.getId() %></td>
+                        <td><%=group.getName() %></td>
+                        <td><%=group.getAbout() %></td>
+                        <td><%=group.getEmail() %></td>
+                        <td><%=group.getIsverified() %></td>  
+                        <td><%=group.getProfilePicture() %></td>
+                        <td><%=group.getContactAddress() %></td>
+                        <td><%=group.getUserId() %></td>
                         
                     </tr>
                 		

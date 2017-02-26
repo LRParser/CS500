@@ -10,6 +10,8 @@ import java.util.ResourceBundle;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.caucho.jsp.Page;
+
 
 public class UserRegister {
   
@@ -279,7 +281,47 @@ public class UserRegister {
 	   return allExperiences;
 		  
 	  }
-  public ArrayList<Group> getUserOwnedGroups(HttpServletRequest request) throws SQLException{
+  
+  public ArrayList<Group> getAllGroups() throws SQLException {
+	  ArrayList<Group> allGroups = new ArrayList<Group>();
+			      
+	     String query = "select * from Owns_Group O";
+	     
+	      Statement st = _conn.createStatement();
+	       ResultSet rs = st.executeQuery(query);
+	       
+	       while (rs.next()) {
+	       
+	    	   
+	        int id = rs.getInt("id");
+	        String name = rs.getString("name");
+	         String about = rs.getString("about");
+	         String email = rs.getString("email");
+	         boolean is_verified = rs.getBoolean("is_verified");
+	         boolean profile_picture = rs.getBoolean("profile_picture");
+	         String contact_address = rs.getString("contact_address");
+	         int member_count = rs.getInt("member_count");
+	         Date update_date = rs.getDate("update_date");
+	         String privacy = rs.getString("privacy");
+	         Date created = rs.getDate("created");
+	         int user_id = rs.getInt("user_id");
+	         
+	         Group group = new Group(id,name, about, email, is_verified, profile_picture, 
+	        		 contact_address, member_count, update_date, privacy, created, user_id );
+	       
+	        
+	         allGroups.add(group);
+	          
+	        
+	       }
+	       
+	       rs.close();
+	       st.close();
+
+	   return allGroups;
+  }
+  
+  public ArrayList<Group> getGroupsOwnedByUserName(HttpServletRequest request) throws SQLException{
 	  ArrayList<Group> allGroups = new ArrayList<Group>();
 		 String username = request.getParameter("username");
 			
@@ -324,8 +366,47 @@ public class UserRegister {
 		  
 	  }
   
-  public ArrayList<Page> getUserOwnedPages(HttpServletRequest request) throws SQLException{
-	  ArrayList<Page> allPages = new ArrayList<Page>();
+  public ArrayList<deception.Page> getAllPages() throws SQLException {
+	  ArrayList<deception.Page> allPages = new ArrayList<deception.Page>();
+			      
+	     String query = "select * from Owns_Page O";
+	     
+	      Statement st = _conn.createStatement();
+	       ResultSet rs = st.executeQuery(query);
+	       
+	       while (rs.next()) {
+	       
+	    	   
+		        int id = rs.getInt("id");
+		        String name = rs.getString("name");
+		         String about = rs.getString("about");
+		         String email = rs.getString("email");
+		         boolean is_verified = rs.getBoolean("is_verified");
+		         boolean profile_picture = rs.getBoolean("profile_picture");
+		         String contact_address = rs.getString("contact_address");
+		         int fan_count = rs.getInt("fan_count");
+		         Date founded = rs.getDate("founded");
+		         String location = rs.getString("location");
+		         int were_here_count = rs.getInt("were_here_count");
+		         String category = rs.getString("category");
+		         int overall_star_rating = rs.getInt("overall_star_rating");
+		         int user_id = rs.getInt("user_id");
+		         
+		         deception.Page page = new deception.Page(id,name, about, email, is_verified, profile_picture, 
+		        		 contact_address, fan_count, founded, location, were_here_count, category, overall_star_rating, user_id);
+		         allPages.add(page);
+	          
+	        
+	       }
+	       
+	       rs.close();
+	       st.close();
+
+	   return allPages;
+  }
+
+public ArrayList<deception.Page> getUserOwnedPages(HttpServletRequest request) throws SQLException{
+	  ArrayList<deception.Page> allPages = new ArrayList<deception.Page>();
 		 String username = request.getParameter("username");
 			
 	      
@@ -356,7 +437,7 @@ public class UserRegister {
 	         int overall_star_rating = rs.getInt("overall_star_rating");
 	         int user_id = rs.getInt("user_id");
 	         
-	         Page page = new Page(id,name, about, email, is_verified, profile_picture, 
+	         deception.Page page = new deception.Page(id,name, about, email, is_verified, profile_picture, 
 	        		 contact_address, fan_count, founded, location, were_here_count, category, overall_star_rating, user_id);
 	       
 	        

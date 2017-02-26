@@ -9,9 +9,8 @@
 <body>
 <div>
 	<div>
-		<p><a href ='#'> Back to Top</a></p>
-		<p>&copy; 2017 Joe and Zee, Inc &middot; <a href='#'>Privacy</a> &middot; <a href='#'>Terms</a>
-	
+		<p><a href ='index.html'> Back to Home</a></p>
+		<p>&copy; 2017 Joe and Zee, Inc
 	</div>
 
 </div>

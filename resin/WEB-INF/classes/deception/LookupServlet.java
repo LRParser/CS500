@@ -84,7 +84,53 @@ public class LookupServlet extends HttpServlet {
     	}
     	
         }
+    
+    public void printAllGroups(PrintWriter out, HttpServletRequest request, HttpServletResponse response ) {
     	
+    	try {
+    	    ArrayList<Group> roster = _reg.getAllGroups();
+    	    request.setAttribute("allgroups", roster);
+    	    RequestDispatcher view = request.getRequestDispatcher("groupview.jsp");
+    	    try {
+				view.forward(request, response);
+			} catch (ServletException e) {
+				
+				e.printStackTrace();
+			} catch (IOException e) {
+				
+				e.printStackTrace();
+			}
+    	    
+    	    
+    	} catch (SQLException sqle) {
+    	    sqle.printStackTrace(out);
+    	}
+    	
+        }
+    	
+    public void printAllPages(PrintWriter out, HttpServletRequest request, HttpServletResponse response ) {
+    	
+    	try {
+    	    ArrayList<deception.Page> allPages = _reg.getAllPages();
+    	    request.setAttribute("allpages", allPages);
+    	    RequestDispatcher view = request.getRequestDispatcher("pageview.jsp");
+    	    try {
+				view.forward(request, response);
+			} catch (ServletException e) {
+				
+				e.printStackTrace();
+			} catch (IOException e) {
+				
+				e.printStackTrace();
+			}
+    	    
+    	    
+    	} catch (SQLException sqle) {
+    	    sqle.printStackTrace(out);
+    	}
+    	
+        }
+    
     public void printAllUserEducationExperiences(PrintWriter out, HttpServletRequest request, HttpServletResponse response ) {
     	
     	try {
@@ -181,10 +227,10 @@ public class LookupServlet extends HttpServlet {
 		}
     	
     }
-    public void printUserOwnedGroups(PrintWriter out, HttpServletRequest request, HttpServletResponse response)
+    public void printGroupsOwnedByUserName(PrintWriter out, HttpServletRequest request, HttpServletResponse response)
     {
     	try {
-    		ArrayList<Group> allgroups = _reg.getUserOwnedGroups(request);
+    		ArrayList<Group> allgroups = _reg.getGroupsOwnedByUserName(request);
 			request.setAttribute("allgroups", allgroups);
     	    RequestDispatcher view = request.getRequestDispatcher("groupview.jsp");
     	    try {
@@ -206,7 +252,7 @@ public class LookupServlet extends HttpServlet {
     public void printUserOwnedPages(PrintWriter out, HttpServletRequest request, HttpServletResponse response)
     {
     	try {
-    		ArrayList<Page> allPages = _reg.getUserOwnedPages(request);
+    		ArrayList<deception.Page> allPages = _reg.getUserOwnedPages(request);
 			request.setAttribute("allpages", allPages);
     	    RequestDispatcher view = request.getRequestDispatcher("pageview.jsp");
     	    try {
@@ -319,7 +365,10 @@ public class LookupServlet extends HttpServlet {
 			printAllUserWorkExperiences(out,request,response);
 		}
 		else if(action.equals("allGroups")) {
-			
+			printAllGroups(out,request,response);
+		}
+		else if(action.equals("allPages")) {
+			printAllPages(out,request,response);
 		}
 		else if (action.equals("allPosts")) {
 			
@@ -382,11 +431,6 @@ public class LookupServlet extends HttpServlet {
 		
 		
 	}
-	else if (action.equals("allUsers"))
-	{
-		doGet(request, response);
-		
-	}
 	else if(action.equals("work"))
 	{
 		PrintWriter out = response.getWriter();
@@ -409,7 +453,7 @@ public class LookupServlet extends HttpServlet {
 		if (!_message.startsWith("Servus")) {
 		    out.println("<h1>Databaase connection failed to open " + _message + "</h1>");
 		} else {
-			printUserOwnedGroups(out, request, response);
+			printGroupsOwnedByUserName(out, request, response);
 		}
 		  
 		out.println("</table>");

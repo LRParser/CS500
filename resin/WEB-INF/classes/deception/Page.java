@@ -172,5 +172,10 @@ public class Page {
 		return this.overall_star_rating;
 	}
 	
+	public int getUserId()
+	{
+		return this.user_id;
+	}
+	
 	
 }
