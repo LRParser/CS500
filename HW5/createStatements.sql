@@ -1,0 +1,1 @@
+create table Person ( name varchar(64) primary key, gender char(1) ); create table Parent_of ( parent varchar(64), child varchar(64), primary key (parent, child), foreign key (parent) references Person(name), foreign key (child) references Person(name) );	
