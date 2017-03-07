@@ -1,0 +1,88 @@
+addblock '
+person(x) -> string(x).
+
+parent_of(x,y) -> string(x), string(y).
+parent_of(x,y) -> person(x), person(y).
+
+ancestor_of(x,y) -> string(x), string(y).
+ancestor_of(x,y) -> person(x), person(y).
+ancestor_of(x,y) <- parent_of(x,y), x!= y.
+ancestor_of(x,y) <- ancestor_of(x,p), ancestor_of(p,y), x!= y.
+
+descendant_of(x,y) -> string(x), string(y).
+descendant_of(x,y) -> person(x), person(y).
+descendant_of(x,y) <- parent_of(y,x), x!= y.
+descendant_of(x,y) <- descendant_of(x,p), descendant_of(p,y), x!= y.
+
+person_gender[x] = n -> string(x), string(n).
+person_gender(x,_) -> person(x).
+
+siblings(x,y) -> string(x), string(y).
+siblings(x,y) -> person(x), person(y). 
+siblings(y,z) <- parent_of(x,y), parent_of(x,z), y!= z.
+
+related(x,y) -> string(x), string(y).
+related(x,y) -> person(x), person(y).
+related(x,y) <- parent_of(x,y), x!= y.
+related(x,y) <- parent_of(y,x), x!= y.
+related(x,y) <- related(x,p), related(p,y), x!= y.
+
+descendant_gender(x,y,g) -> string(x),string(y),string(g).
+descendant_gender(x,y,g) -> person(x), person(y), string(g).
+descendant_gender(x,y,g) <- descendant_of(x,y), person_gender(x,g).
+
+gen_num_wrt(c,x,z) -> string(c), string(x), int(z).
+gen_num_wrt(c,x,z) -> person(c), person(x), int(z). 
+gen_num_wrt(c,x,1) <- parent_of(c,x).
+gen_num_wrt(c,x,z) <- parent_of(a,x), gen_num_wrt(c,a,b), z = b+1.
+
+oldest_ancestor(x,y) -> string(x), string(y). 
+oldest_ancestor(x,y) -> person(x), person(y). 
+oldest_ancestor(x,y) <- person(x), person(y), ancestor_of(x,y), !parent_of(c,x).
+
+same_generation(x,y,g) -> string(x), string(y), int(g).
+same_generation(x,y,g) -> person(x), person(y), int(g).
+same_generation(x,y,g) <- oldest_ancestor(c,x), oldest_ancestor(c,y), gen_num_wrt(c,x,g), gen_num_wrt(c,y,g), x!= y.
+
+num_descendents_by_gender(x,g,n) -> string(x), string(g), int(n).
+num_descendents_by_gender(x,g,n) -> person(x), string(g), int(n).
+num_descendents_by_gender[x,g] = n <- agg << n = count() >> descendant_gender(a,x,g).
+'
+
+exec '
++person("Ann").
++person("Bill").
++person("Bob").
++person("Caitlin").
++person("Cory").
++person("Dave").
++person("Dustin").
++person("Emma").
++person("Emily").
++person("Felix").
++person("Francis").
++person("Fred").
++person_gender("Ann","F").
++person_gender("Bill","M").
++person_gender("Bob","M").
++person_gender("Caitlin","F").
++person_gender("Cory","M").
++person_gender("Dave","M").
++person_gender("Dustin","M").
++person_gender("Emma","F").
++person_gender("Emily","F").
++person_gender("Felix","M").
++person_gender("Francis","M").
++person_gender("Fred","M").
++parent_of("Ann","Bill").
++parent_of("Ann","Bob").
++parent_of("Bill","Caitlin").
++parent_of("Bob","Cory").
++parent_of("Caitlin","Dave").
++parent_of("Cory","Dustin").
++parent_of("Dave","Emma").
++parent_of("Dustin","Emily").
++parent_of("Emma","Felix").
++parent_of("Emily","Francis").
++parent_of("Emily","Fred").
+'
